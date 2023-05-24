@@ -1,10 +1,11 @@
 import "./styles.css";
 import "leaflet/dist/leaflet.css";
-import { TileLayer, MapContainer, Marker, Popup, CircleMarker } from "react-leaflet";
+import { TileLayer, MapContainer, Marker, Popup, CircleMarker, GeoJSON } from "react-leaflet";
 import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import { useEffect, useState } from "react";
 import { addressPoints } from './addressPoints';
 import { divIcon } from 'leaflet';
+import getojson from './geojson.json';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -28,6 +29,15 @@ export default function App() {
     minOpacity: 1,
     maxOpacity: 1
   };
+
+  const styleState = (feature) => ({
+    fillColor: feature.properties.UF_05.startsWith('P') ? 'GREEN' : 'RED',
+    weight: 1,
+    opacity: 0.9,
+    color: 'black',
+    dashArray: '1',
+    fillOpacity: 0.7,
+  });
 
   useEffect(() => {
     setData(addressPoints);
@@ -69,6 +79,7 @@ export default function App() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          <GeoJSON data={getojson} style={styleState} />
         </MapContainer>
     </div>
   );
