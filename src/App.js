@@ -31,12 +31,12 @@ export default function App() {
   };
 
   const styleState = (feature) => ({
-    fillColor: feature.properties.UF_05.startsWith('P') ? 'GREEN' : 'RED',
+    fillColor: 'green',
     weight: 1,
-    opacity: 0.9,
+    opacity: 0.3,
     color: 'black',
     dashArray: '1',
-    fillOpacity: 0.7,
+    fillOpacity: 0.4,
   });
 
   useEffect(() => {
@@ -50,6 +50,7 @@ export default function App() {
           zoom={4}
           key={Math.random()}
         >
+          <GeoJSON data={getojson} style={styleState} />
           <HeatmapLayer
             fitBoundsOnLoad
             fitBoundsOnUpdate
@@ -79,7 +80,6 @@ export default function App() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <GeoJSON data={getojson} style={styleState} />
         </MapContainer>
     </div>
   );
