@@ -1,0 +1,13 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+.leaflet-container {
+  background-color: #aad3df;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+.rootContainer{
+  height: 100vh
+}
