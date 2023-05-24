@@ -11,3 +11,15 @@
 .rootContainer{
   height: 100vh
 }
+
+.markerCustomIcon {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: black;
+  margin: 3px;
+}
+
+.markerCustomIcon:hover{
+  border: 1px solid white;
+}

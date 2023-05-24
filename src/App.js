@@ -1,9 +1,23 @@
 import "./styles.css";
 import "leaflet/dist/leaflet.css";
-import { TileLayer, MapContainer } from "react-leaflet";
+import { TileLayer, MapContainer, Marker, Popup, CircleMarker } from "react-leaflet";
 import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import { useEffect, useState } from "react";
 import { addressPoints } from './addressPoints';
+import { divIcon } from 'leaflet';
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+});
+
+const customIcon = divIcon({
+  className: 'markerCustomIcon',
+  html: '<div></div>',
+  iconSize: [10, 10],
+});
 
 export default function App() {
   const [data, setData] = useState([]);
@@ -36,6 +50,21 @@ export default function App() {
             intensityExtractor={(point) => 0}
             {...heatmapOptions}
           />
+          <Marker position={[-10.579599, -37.34203]} icon={customIcon}>
+            <Popup>
+              Estou em Aracaju
+            </Popup>
+          </Marker>
+
+          <Marker position={[-9.6647428, -35.7387426]}>
+            <Popup>
+              Estou em Maceió
+            </Popup>
+          </Marker>
+
+          <CircleMarker center={[-7.8682068, -37.9747581]} color="black" radius={10}>
+            <Popup>Estou em flores</Popup>
+          </CircleMarker>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
